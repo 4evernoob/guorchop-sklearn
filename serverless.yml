@@ -1,4 +1,4 @@
-service: sk-test
+service: sk-test1
 plugins:
   - serverless-python-requirements
   - serverless-wsgi
