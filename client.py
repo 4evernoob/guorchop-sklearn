@@ -2,6 +2,7 @@ import pickle as pkl
 import numpy as np
 import pandas as p
 import json
+#import these because sometimes not importing them does shit
 from sklearn import tree
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
@@ -20,6 +21,7 @@ df=p.read_csv('spambase.data',names=namecol)
 
 
 df_train,df_test= train_test_split(df,train_size=.70, random_state=999)
+#load model
 testm=None
 with open('eldummy.pkl','rb') as fp:
     testm=pkl.load(fp)
@@ -27,11 +29,12 @@ with open('eldummy.pkl','rb') as fp:
     y_pred=testm.predict(df_test[col])
     print('correct classification')
     print(np.mean(y_pred==df_test['class']))
-
+#handler 
 def predict(event,context):
-    r=testm.predict([event['row']])
+	data=json.loads(event['body'])
+    r=testm.predict([data['row']])
     return {'spam':r[0]}
-
+# fake test
 if __name__ == '__main__':
     print('original value',df_test.iloc[0,-1].tolist())
     res=predict({'row':df_test[col].iloc[0,:].tolist()},None)
