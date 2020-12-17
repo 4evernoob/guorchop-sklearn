@@ -31,7 +31,7 @@ with open('eldummy.pkl','rb') as fp:
     print(np.mean(y_pred==df_test['class']))
 #handler 
 def predict(event,context):
-	data=json.loads(event['body'])
+    data=json.loads(event['body'])
     r=testm.predict([data['row']])
     return {'spam':r[0]}
 # fake test
