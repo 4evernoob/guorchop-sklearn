@@ -5,7 +5,10 @@ plugins:
 custom:
   pythonRequirements:
     dockerizePip: non-linux
-
+package:
+  individually: true
+  exclude:
+    - spambase.zip
 provider:
   name: aws
   runtime: python3.6
