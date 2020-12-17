@@ -33,11 +33,19 @@ with open('eldummy.pkl','rb') as fp:
 def predict(event,context):
     data=json.loads(event['body'])
     r=testm.predict([data['row']])
-    return {'spam':r[0]}
+    return {
+        "statusCode": 200,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": json.dumps({'spam':int(r[0])})
+    }
+    
 # fake test
 if __name__ == '__main__':
     print('original value',df_test.iloc[0,-1].tolist())
-    res=predict({'row':df_test[col].iloc[0,:].tolist()},None)
+    test={'body':json.dumps({'row':df_test[col].iloc[0,:].tolist()})}
+    res=predict(test,None)
     with open('example.json','w') as fp:
         json.dump({'row':df_test[col].iloc[0,:].tolist()},fp)
     print(res)
