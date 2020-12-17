@@ -15,8 +15,9 @@ if __name__ == '__main__':
         namecol=[a.replace('\n','') for a in fp.readlines()]
     #print(namecol)
     df=p.read_csv('spambase.data',names=namecol)
-    #print(df)
-
+    print(df)
+    print(df.shape)
+    
     #print(df[col])
     #print(df['class'])
 
@@ -24,6 +25,8 @@ if __name__ == '__main__':
     df_train,df_test= train_test_split(df,train_size=.70, random_state=999)
     print(df_train[df_train['class']==0].mean()-df_train[df_train['class']==1].mean())
     #print(df_train[df_train['class']==1].mean())
+    print(df_train.shape,' ',df_test.shape)
+    input('continue')
     fig,ax = plt.subplots(3,figsize=(15,12))
     df_train[df_train['class']==0]['capital_run_length_total'].plot.hist(bins=300,ax=ax[0],alpha=.5)
     df_train[df_train['class']==1]['capital_run_length_total'].plot.hist(bins=300,ax=ax[0],alpha=.5)
@@ -74,6 +77,9 @@ if __name__ == '__main__':
 
     print('correct classification')
     print(np.mean(y_pred==df_test['class']))
+    
+
+
     with open('eldummy.pkl','wb') as fp:
         pkl.dump(jepl,fp)
     print("test model load")

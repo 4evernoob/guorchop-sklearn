@@ -1,24 +1,25 @@
-service: sk-aiuda
+service: sk-test
 plugins:
-  - serverless-python-requirements
-  - serverless-wsgi
+	- serverless-python-requirements
+	- serverless-wsgi
 custom:
-  pythonRequirements:
-    dockerizePip: non-linux
+	pythonRequirements:
+		dockerizePip: non-linux
+
 package:
-  individually: true
-  exclude:
-    - spambase.zip
+	individually: true
+	exclude:
+		- spambase.zip
 provider:
-  name: aws
-  runtime: python3.6
-  stage: prod
-  region: us-east-1
+	name: aws
+	runtime: python3.6
+	stage: prod
+	region: us-east-1
 functions:
-  jepl:
-    handler: client.predict
-    events:
-      - http:
-          path: predict
-          method: post
-          cors: true 
+	jelp:
+		handler: client.predict
+		events:
+		 - http:
+		 	path: predict
+		 	cors: true
+		 	method: post
